@@ -4,8 +4,7 @@
 
 ### TEAM MEMBERS: 
 
-    - Tiffany Yin, Brian Hopkins, Hunter Fitch, Isaac Korff
-
+    - Tiffany Yin, Brian Hopkins
 ### REQUIREMENTS:
 
     - Must use at least two APIs:
@@ -56,13 +55,9 @@
 
 ### TASK DELEGATION:
 
-    - Frontend & OMBD API:
+    - Frontend & OMBD API + Backend & YouTube (trailer) API & how HTML displays on the DOM: 
 
-        * Hunter & Brian
-
-    - Backend & YouTube (trailer) API & how HTML displays on the DOM: 
-
-        * Tiffany & Isaac
+        * Tiffany & Brian
 
 >>>>>>> 9b43255e086a712482d0563dde6e2c681945e427
 
