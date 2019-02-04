@@ -66,7 +66,7 @@ var movies = [
 // var displayedMovie = false;
 
 // This function handles events where a movie button is clicked:
-$("#add-movie").on("click", function(event) {
+$("#add-movie").on("click", function (event) {
   event.preventDefault();
 
   // This line grabs the input from the textbox:
@@ -82,12 +82,12 @@ $("#add-movie").on("click", function(event) {
 });
 
 // Adding a click event listener to all elements with a class of "movie-btn":
-$(document).on("click", ".movie-btn", function() {
+$(document).on("click", ".movie-btn", function () {
   var movie = $(this).attr("movie-name");
 
   searchOmdb(movie, renderOmdb);
 
-  searchYoutube(movie, function(res) {
+  searchYoutube(movie, function (res) {
     var videoId = res.items[0].id.videoId;
     $("#testing").attr("src", "https://www.youtube.com/embed/" + videoId);
     console.log(res);
@@ -173,10 +173,10 @@ function renderOmdb(response) {
   for (var i = 0; i < response.Ratings.length; i++) {
     movieInfoDiv.append(
       "<p><strong>" +
-        response.Ratings[i].Source +
-        ": </strong>" +
-        response.Ratings[i].Value +
-        "</p>"
+      response.Ratings[i].Source +
+      ": </strong>" +
+      response.Ratings[i].Value +
+      "</p>"
     );
   }
 
@@ -196,7 +196,7 @@ function renderOmdb(response) {
   // Storing the poster:
   var imgURL = response.Poster;
   if (imgURL === "N/A") {
-    imgURL = "https://placehold.it/600x400";
+    imgURL = "assets/images/image_not_found.png"
   }
 
   var image = $("<img>").attr("src", imgURL);
