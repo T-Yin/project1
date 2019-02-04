@@ -114,7 +114,7 @@ function searchYoutube(query, cb) {
     key: "AIzaSyB7125hvC9K1rfl-8fZMIwFGG3k3VCZ4hk",
     part: "snippet",
     maxResults: 10,
-    q: query,
+    q: query + "official trailer",
     type: "video",
     videoEmbeddable: true
   };
@@ -137,7 +137,7 @@ function renderButtons() {
     // Then dynamically generating buttons for each movie in the array via jQuery needcode $("<button>") to create the beginning and end tag (<button></button>):
     var a = $("<button>");
     // Adding a class of "movie-btn" to the button:
-    a.addClass("movie-btn");
+    a.addClass("movie-btn button is-dark ");
     // Adding a data-attribute called "movie-name":
     a.attr("movie-name", movies[i]);
     // Providing the initial button text:
@@ -162,6 +162,8 @@ function searchMovie() {
 
 function renderOmdb(response) {
   var movieInfoDiv = $("#movieInfo");
+
+  clearDivs();
 
   // Creating an element to hold the plot:
   movieInfoDiv.append("<p><strong>Plot: </strong>" + response.Plot + "</p>");
@@ -196,11 +198,18 @@ function renderOmdb(response) {
   // Storing the poster:
   var imgURL = response.Poster;
   if (imgURL === "N/A") {
-    imgURL = "https://placehold.it/600x400";
+    imgURL = 
   }
 
   var image = $("<img>").attr("src", imgURL);
 
   // Appending the image to the poster div:
   $("#posterDiv").append(image);
+}
+
+function clearDivs() {
+
+  $("#movieInfo").empty();
+  $("#posterDiv").empty();
+
 }
