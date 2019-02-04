@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-        crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous"> -->
+
+    <!-- Bulma -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -19,17 +22,47 @@
 </head>
 
 <body>
+    <div class="container">
 
-        <div id="button-view">
-                <!-- Buttons go here! -->
-            </div>
-            
-            <div id="movieInfo">
-                <!-- Movie Info here! -->
-            </div>
-            <div id="posterDiv">
-                <!--Poster Here!  -->
+        <!-- Header below -->
+        <header class="has-text-centered">
+            <h1 class="title is-1"> Search Movie Trailers </h1>
+        </header>
 
+        <!-- Search Form below -->
+        <div class="columns has-text-centered">
+            <div class="column"></div>
+            <div class="column">
+                <div class="control">
+                    <input class="input" id="movie-input" type="text" placeholder="Search Movie">
+                    <button class="button is-dark" id="add-movie">Submit</button>
+                </div>
+            </div>
+            <div class="column">
+            </div>
+        </div>
+
+
+        <div id="buttons-view">
+            <!-- Buttons go here! -->
+        </div>
+
+        <div class="columns is-gapless">
+            <div class="column"></div>
+            <div class="column">
+                <div id="movieInfo">
+                    <!-- Movie Info here! -->
+                </div>
+            </div>
+            <div class="column">
+                <div id="posterDiv" class="has-text-centered">
+                    <!-- Poster Here!  -->
+                </div>
+            </div>
+            <div class="column"></div>
+        </div>
+
+    </div>
     <!-- JavaScript -->
     <script src="assets/javascript/logic.js"></script>
 
