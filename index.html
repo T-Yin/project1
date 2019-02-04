@@ -1,71 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <!-- Bootstrap -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous"> -->
 
     <!-- Bulma -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"
+    />
 
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Ewert" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Ewert"
+      rel="stylesheet"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <title>Streaming Movie Finder</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
+      <iframe
+      id="testing"
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/ssDH54_oMAA"
+        frameborder="0"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
 
-        <!-- Header below -->
-        <header class="has-text-centered">
-            <h1 class="title is-1"> Search Movie Trailers </h1>
-        </header>
+      <!-- Header below -->
+      <header class="has-text-centered">
+        <h1 class="title is-1">Search Movie Trailers</h1>
+      </header>
 
-        <!-- Search Form below -->
-        <div class="columns has-text-centered">
-            <div class="column"></div>
-            <div class="column">
-                <div class="control">
-                    <input class="input" id="movie-input" type="text" placeholder="Search Movie">
-                    <button class="button is-dark" id="add-movie">Submit</button>
-                </div>
-            </div>
-            <div class="column">
-            </div>
+      <!-- Search Form below -->
+      <div class="columns has-text-centered">
+        <div class="column"></div>
+        <div class="column">
+          <div class="control">
+            <input
+              class="input"
+              id="movie-input"
+              type="text"
+              placeholder="Search Movie"
+            />
+            <button class="button is-dark" id="add-movie">Submit</button>
+          </div>
         </div>
+        <div class="column"></div>
+      </div>
 
+      <div id="buttons-view">
+        <!-- Buttons go here! -->
+      </div>
 
-        <div id="buttons-view">
-            <!-- Buttons go here! -->
+      <div class="columns is-gapless">
+        <div class="column"></div>
+        <div class="column">
+          <div id="movieInfo">
+            <!-- Movie Info here! -->
+          </div>
         </div>
-
-        <div class="columns is-gapless">
-            <div class="column"></div>
-            <div class="column">
-                <div id="movieInfo">
-                    <!-- Movie Info here! -->
-                </div>
-            </div>
-            <div class="column">
-                <div id="posterDiv" class="has-text-centered">
-                    <!-- Poster Here!  -->
-                </div>
-            </div>
-            <div class="column"></div>
+        <div class="column">
+          <div id="posterDiv" class="has-text-centered">
+            <!-- Poster Here!  -->
+          </div>
         </div>
-
+        <div class="column"></div>
+      </div>
     </div>
     <!-- JavaScript -->
     <script src="assets/javascript/logic.js"></script>
-
-</body>
-
+  </body>
 </html>

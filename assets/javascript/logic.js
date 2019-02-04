@@ -88,6 +88,8 @@ $(document).on("click", ".movie-btn", function() {
   searchOmdb(movie, renderOmdb);
 
   searchYoutube(movie, function(res) {
+    var videoId = res.items[0].id.videoId;
+    $("#testing").attr("src", "https://www.youtube.com/embed/" + videoId);
     console.log(res);
   });
 });
@@ -107,7 +109,17 @@ function searchOmdb(query, cb) {
 }
 
 function searchYoutube(query, cb) {
-  var queryURL = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&type=video&key=AIzaSyB7125hvC9K1rfl-8fZMIwFGG3k3VCZ4hk`;
+
+  var params = {
+    key: "AIzaSyB7125hvC9K1rfl-8fZMIwFGG3k3VCZ4hk",
+    part: "snippet",
+    maxResults: 10,
+    q: query,
+    type: "video",
+    videoEmbeddable: true
+  };
+
+  var queryURL = "https://www.googleapis.com/youtube/v3/search?" + $.param(params);
 
   $.ajax({
     url: queryURL,
