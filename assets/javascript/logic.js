@@ -1,8 +1,8 @@
 // PSEUDOCODING:
 
-// OBJECTIVE: This is a Streaming Movie Finder app that takes the user search input for streaming movies and pulls from the OMDB API to display the following information:
+// OBJECTIVE: This is a Search Movie Trailer app that takes the user search input for movie trailers and pulls from the OMDB API to display the following information:
 
-// Movie name, poster, genre, plot, rating, reviews, runtime, release date, etc.
+// Movie name, poster, plot, genre, reviews, runtime, rating, release date, etc.
 
 // Limited input field (only searches for movies: "That's not a movie.")
 
@@ -13,10 +13,10 @@
 
 // SITE LAYOUT:
 
-// CONTAINER 1: // Title: "Where To Stream?"
+// CONTAINER 1: // Title: "Search Movie Trailers"
 
-// Under the title, there is a "Movie Search" input field.
-// Below there are [#] hard-coded buttons (depending on name length) of popular movies.
+// Under the title, there is a "Search Movie Trailer" input field.
+// Below there are [#] dynamically generated buttons of searched movies.
 
 
 
@@ -40,7 +40,7 @@
 // CONTAINER 1: //
 
 // Create Jumbotron with search input field and Search button.
-// Create [#] hard-coded buttons for popular movies.
+// Create [#] dynamically generated buttons of searched movies.
 
 
 
@@ -48,7 +48,7 @@
 
 // Create 2 columns:
 
-// Column 1: Create AJAX call to OMDB for movie genre, plot, rating, reviews, runtime, release date, etc.
+// Column 1: Create AJAX call to OMDB for name, poster, plot, genre, reviews, runtime, rating, release date, etc.
 // Column 2: Create a movie poster box for OMDB data response to be displayed at the far right side.
 
 
@@ -63,7 +63,9 @@
 
 
 
-// Initial array of movies
+// BEGIN CODING HERE:
+
+// Initial array of movies:
 var movies = ["Mulan", "The Princess Bride", "The Lion King", "The Incredibles"];
 
 // if button is clicked, then turns true to display the movie
@@ -77,7 +79,7 @@ function searchMovie() {
     var movie = $(this).attr("movie-name");
     var queryURL = "https://www.omdbapi.com/?t=" + movie + "&y=&plot=short&apikey=trilogy";
 
-    // Creating an AJAX call for the specific movie button being clicked
+    // Creating an AJAX call for the specific movie button being clicked:
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -86,87 +88,92 @@ function searchMovie() {
         console.log(response)
         var movieInfoDiv = $("#movieInfo");
 
-        // Display Plot
+        // Storing the plot:
         var plot = response.Plot;
+
+        // Creating an element to hold the plot:
         movieInfoDiv.append("<p><strong>Plot: </strong>" + response.Plot + "</p>");
 
-        // Display Genre
+        // Storing the genre:
         var genre = response.Genre;
+
+        // Creating an element to hold the genre:
         movieInfoDiv.append("<p><strong>Genre: </strong>" + response.Genre + "</p>");
 
-        // Display Reviews
+        // Looping through the array of Ratings:
         for (var i = 0; i < response.Ratings.length; i++) {
             movieInfoDiv.append("<p><strong>" + response.Ratings[i].Source + ": </strong>" + response.Ratings[i].Value + "</p>");
         }
 
-        // Display Runtime
+        // // Storing the runtime:
         var runtime = response.Runtime;
+
+        // Creating an element to hold the runtime:
         movieInfoDiv.append("<p><strong>Runtime: </strong>" + response.Runtime + "</p>");
 
-        // Display Rating
+        // Storing the rating:
         var rating = response.Rated;
+
+        // Creating an element to hold the rating:
         movieInfoDiv.append("<p><strong>Rating: </strong>" + rating + "</p>");
 
-        // Display Release Date
+        // Storing the release date:
         var releaseDate = response.Released;
+
+        // Creating an element to hold the release date:
         movieInfoDiv.append("<p><strong>Released: </strong>" + response.Released + "</p>");
 
-        // Display Poster
+        // Storing the poster:
         var imgURL = response.Poster;
+
         var image = $("<img>").attr("src", imgURL);
 
-        // Appending the image to appropriate poster div.
+        // Appending the image to the poster div:
         $("#posterDiv").append(image);
-
-         
-        // if () {
-
-        // }
 
     })
 
 };
 
-// Function for displaying movie data
+// Function for displaying movie data:
 function renderButtons() {
 
-    // Deleting the movies prior to adding new movies
-    // (this is necessary otherwise you will have repeat buttons)
+    // Deleting the existing movies prior to adding new movies (to avoid repeat buttons):
     $("#buttons-view").empty();
 
-    // Looping through the array of movies
+    // Looping through the array of movies:
     for (var i = 0; i < movies.length; i++) {
 
-        // Then dynamicaly generating buttons for each movie in the array
-        // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+        // Then dynamically generating buttons for each movie in the array via jQuery needcode $("<button>") to create the beginning and end tag (<button></button>):
         var a = $("<button>");
-        // Adding a class of movie-btn to our button
+        // Adding a class of "movie-btn" to the button:
         a.addClass("movie-btn");
-        // Adding a data-attribute
+        // Adding a data-attribute called "movie-name":
         a.attr("movie-name", movies[i]);
-        // Providing the initial button text
+        // Providing the initial button text:
         a.text(movies[i]);
-        // Adding the button to the buttons-view div
+        // Adding the button to the buttons-view div:
         $("#buttons-view").append(a);
     }
 }
 
-// This function handles events where a movie button is clicked
+// This function handles events where a movie button is clicked:
 $("#add-movie").on("click", function (event) {
     event.preventDefault();
-    // This line grabs the input from the textbox
+
+    // This line grabs the input from the textbox:
     var movie = $("#movie-input").val().trim();
 
-    // Adding movie from the textbox to our array
+    // Adding movie from the textbox to the movies array:
     movies.push(movie);
 
-    // Calling renderButtons which handles the processing of our movie array
+    // Calling renderButtons which handles the processing of the movies array:
     renderButtons();
 });
 
-// Adding a click event listener to all elements with a class of "movie-btn"
-$(document).on("click", ".movie-btn", searchMovie); 
+// Adding a click event listener to all elements with a class of "movie-btn":
+$(document).on("click", ".movie-btn", searchMovie);
 
 
-// Calling the renderButtons function to display the intial buttons
+// Calling the renderButtons function to display the intial buttons:
 renderButtons();
