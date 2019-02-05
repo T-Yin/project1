@@ -198,7 +198,7 @@ function renderOmdb(response) {
   // Storing the poster:
   var imgURL = response.Poster;
   if (imgURL === "N/A") {
-    imgURL = "assets/images/image_not_found.png";
+    imgURL = "assets/images/image_not_found.png"
   }
 
   var image = $("<img>").attr("src", imgURL);
