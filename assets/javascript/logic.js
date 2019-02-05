@@ -53,6 +53,8 @@
 // BEGIN CODING HERE:
 
 // Initial array of movies:
+// Calling the renderButtons function to display the intial buttons:
+
 var movies = [
   "Mulan",
   "The Princess Bride",
@@ -61,12 +63,17 @@ var movies = [
 ];
 
 var savedMovies = localStorage.getItem("savedMovies");
-console.log(savedMovies)
-savedMovies = JSON.parse(savedMovies);
-if(Array.isArray(savedMovies)){
-  movies = savedMovies;
+try {
+  console.log(savedMovies)
+  savedMovies = JSON.parse(savedMovies);
+  if (Array.isArray(savedMovies)) {
+    movies = savedMovies;
+  }
+} catch {
+  console.log("There was an error")
 }
 
+renderButtons();
 // var savedMovies = []
 
 // if button is clicked, then turns true to display the movie
@@ -103,8 +110,32 @@ $(document).on("click", ".movie-btn", function () {
   });
 });
 
-// Calling the renderButtons function to display the intial buttons:
-renderButtons();
+// This function handles events where the Clear button is clicked:
+$("#clear-button").on("click", function (event) {
+  // event.preventDefault();
+  $("#movieInfo").empty();
+  $("#posterDiv").empty();
+  $("#buttons-view").empty();
+  $("#movie-trailer").empty();
+})
+
+// This function handles events where the Save button is clicked:
+$("#save-button").on("click", function (event) {
+  // This line prevents the page from refreshing when user clicks "Save":
+  event.preventDefault();
+
+  // Clears everything stored in localStorage using localStorage.clear():
+  // localStorage.clear();
+
+  console.log(movies);
+  renderButtons();
+
+  // Stores the movie into localStorage using "localStorage.setItem":
+  localStorage.setItem("savedMovies", JSON.stringify(movies));
+
+});
+
+
 
 function searchOmdb(query, cb) {
   var queryURL =
@@ -231,33 +262,7 @@ function clearDivs() {
 
 }
 
-// This function handles events where the Clear button is clicked:
-$("#clear-button").on("click", function (event) {
-  // event.preventDefault();
-  $("#movieInfo").empty();
-  $("#posterDiv").empty();
-  $("#buttons-view").empty();
-  $("#movie-trailer").empty();
-})
 
-// This function handles events where the Save button is clicked:
-$("#save-button").on("click", function (event) {
-  // This line prevents the page from refreshing when user clicks "Save":
-  event.preventDefault();
-
-  // Clears everything stored in localStorage using localStorage.clear():
-  // localStorage.clear();
-
-  console.log(movies);
-  renderButtons();
-
-  // Stores the movie into localStorage using "localStorage.setItem":
-  localStorage.setItem("savedMovies", savedMovies);
-
-  // And displays that saved movie for the user using "localStorage.getItem"
-  $("#saved-buttons-view").html(localStorage.getItem("savedMovies"));
-
-});
 
 // // Function for displaying saved movie data:
 // function renderSavedButtons() {
