@@ -60,6 +60,9 @@ var movies = [
   "The Incredibles"
 ];
 
+// var yearOmdb = [];
+// var yearEntered = false;
+
 // if button is clicked, then turns true to display the movie
 // if already true, then empty the display and return false
 // if already false, then display movies
@@ -74,8 +77,19 @@ $("#add-movie").on("click", function (event) {
     .val()
     .trim();
 
+  var year = $("#year-input")
+    .val()
+    .trim();
+
   // Adding movie from the textbox to the movies array:
   movies.push(movie);
+  yearOmdb.push(year);
+
+  // if (year === "") {
+  //   yearEntered = false
+  // } else {
+  //   yearEntered = true
+  // }
 
   // Calling renderButtons which handles the processing of the movies array:
   renderButtons();
@@ -85,42 +99,75 @@ $("#add-movie").on("click", function (event) {
 $(document).on("click", ".movie-btn", function () {
   var movie = $(this).attr("movie-name");
 
-  searchOmdb(movie, renderOmdb);
+  searchOmdb(movie, function (res) {
+    renderOmdb(res);
 
-  searchYoutube(movie, function (res) {
-    var videoId = res.items[0].id.videoId;
-    $("#testing").attr("src", "https://www.youtube.com/embed/" + videoId);
-    console.log(res);
+    var year = res.Released[7] + res.Released[8] + res.Released[9] + res.Released[10];
+
+    searchYoutube(movie, year, function (res) {
+      var videoId = res.items[0].id.videoId;
+      $("#testing").attr("src", "https://www.youtube.com/embed/" + videoId);
+
+    });
   });
+
 });
 
 // Calling the renderButtons function to display the intial buttons:
 renderButtons();
 
 function searchOmdb(query, cb) {
-  var queryURL =
-    "https://www.omdbapi.com/?t=" + query + "&y=&plot=short&apikey=trilogy";
+  // if (yearEntered) {
 
-  // Creating an AJAX call for the specific movie button being clicked:
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(cb);
-}
+  //   var movieParams = {
+  //     apikey: "trilogy",
+  //     t: query,
+  //     plot: "short",
+  //     y: parseInt(yearOmdb[0])
+  //   }
 
-function searchYoutube(query, cb) {
+  //   console.log(yearOmdb);
+
+  //   var queryURL =
+  //     "https://www.omdbapi.com/?" + $.param(movieParams);
+
+    // Creating an AJAX call for the specific movie button being clicked:
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(cb);
+  // } else {
+
+    var movieParams = {
+      apikey: "trilogy",
+      t: query,
+      plot: "short",
+    }
+
+    var queryURL =
+      "https://www.omdbapi.com/?" + $.param(movieParams);
+
+    // Creating an AJAX call for the specific movie button being clicked:
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(cb);
+  // }
+};
+
+function searchYoutube(query, year, cb) {
 
   var params = {
-    key: "AIzaSyB7125hvC9K1rfl-8fZMIwFGG3k3VCZ4hk",
+    key: "AIzaSyB2Kaj69ZVu97NmlZZPkSSpqof43KUG_GY",
     part: "snippet",
-    maxResults: 10,
-    q: query + "official trailer",
+    maxResults: 1,
+    q: query + " " + year + " official trailer",
     type: "video",
     videoEmbeddable: true
   };
 
   var queryURL = "https://www.googleapis.com/youtube/v3/search?" + $.param(params);
-
+  console.log("queryURL: ", queryURL);
   $.ajax({
     url: queryURL,
     method: "GET"
@@ -167,6 +214,9 @@ function renderOmdb(response) {
 
   // Creating an element to hold the plot:
   movieInfoDiv.append("<p><strong>Plot: </strong>" + response.Plot + "</p>");
+  // if (response.Plot === "undefined") {
+
+  // }
 
   // Creating an element to hold the genre:
   movieInfoDiv.append("<p><strong>Genre: </strong>" + response.Genre + "</p>");
@@ -211,5 +261,6 @@ function clearDivs() {
 
   $("#movieInfo").empty();
   $("#posterDiv").empty();
+  yearOmdb = [];
 
 }
