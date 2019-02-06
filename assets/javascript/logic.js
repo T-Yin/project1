@@ -175,15 +175,24 @@ function renderButtons() {
   // Looping through the array of movies:
   for (var i = 0; i < movies.length; i++) {
     // Then dynamically generating buttons for each movie in the array via jQuery needcode $("<button>") to create the beginning and end tag (<button></button>):
+    // <div class="buttons has-addons">
+    //     <span class="button">Yes</span>
+    //     <span class="button">Maybe</span>
+    //   </div>
+    var $div = $("<div class='buttons has-addons'>")
     var a = $("<button>");
+    var del = $("<button>");
     // Adding a class of "movie-btn" to the button:
     a.addClass("movie-btn button is-dark");
+    del.addClass("button movie-del")
     // Adding a data-attribute called "movie-name":
     a.attr("movie-name", movies[i]);
     // Providing the initial button text:
     a.text(movies[i]);
+    del.html('<i class="movie-del far fa-trash-alt"></i>');
     // Adding the button to the buttons-view div:
-    $("#buttons-view").append(a);
+    $div.append(a, del);
+    $("#buttons-view").append($div);
   }
 }
 
