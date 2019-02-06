@@ -266,6 +266,7 @@ function clearDivs() {
   yearOmdb = [];
 
 }
+<<<<<<< HEAD
 
 // $("#viewTrailer").on("click", function() {
 //   if (!viewTrailer) {
@@ -278,3 +279,5 @@ function clearDivs() {
 // })
 
 
+=======
+>>>>>>> 0a5d3bb6e950a659e9b6a4f21bcee8a2b0bb36d3
