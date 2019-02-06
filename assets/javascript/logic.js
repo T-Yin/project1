@@ -1,4 +1,6 @@
 // Initial array of movies:
+// Calling the renderButtons function to display the intial buttons:
+
 var movies = [
   "Mulan",
   "The Princess Bride",
@@ -29,7 +31,7 @@ renderButtons();
 // if already false, then display movies
 // var displayedMovie = false;
 
-// This function handles events where a movie button is clicked:
+// This function handles events where a new movie button is clicked:
 $("#add-movie").on("click", function (event) {
   event.preventDefault();
 
@@ -81,58 +83,23 @@ $("#clear-button").on("click", function (event) {
   $("#movie-trailer").empty();
 })
 
-    var year = res.Released[7] + res.Released[8] + res.Released[9] + res.Released[10];
+// This function handles events where the Save button is clicked:
+$("#save-button").on("click", function (event) {
+  // This line prevents the page from refreshing when user clicks "Save":
+  event.preventDefault();
 
-    searchYoutube(movie, year, function (res) {
-      var videoId = res.items[0].id.videoId;
-      $("#testing").attr("src", "https://www.youtube.com/embed/" + videoId);
+  // Clears everything stored in localStorage using localStorage.clear():
+  // localStorage.clear();
 
-    });
+  console.log(movies);
+  renderButtons();
+
+  // Stores the movie into localStorage using "localStorage.setItem":
+  localStorage.setItem("savedMovies", JSON.stringify(movies));
+
+});
 
 
-
-
-// Calling the renderButtons function to display the intial buttons:
-renderButtons();
-
-function searchOmdb(query, year, cb) {
-  if (year) {
-
-    var movieParams = {
-      apikey: "trilogy",
-      t: query,
-      plot: "short",
-      y: parseInt(yearOmdb[0])
-    }
-
-    console.log(yearOmdb);
-
-    var queryURL =
-      "https://www.omdbapi.com/?" + $.param(movieParams);
-
-    // Creating an AJAX call for the specific movie button being clicked:
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(cb);
-  } else {
-
-    var movieParams = {
-      apikey: "trilogy",
-      t: query,
-      plot: "short",
-    }
-
-    var queryURL =
-      "https://www.omdbapi.com/?" + $.param(movieParams);
-
-    // Creating an AJAX call for the specific movie button being clicked:
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(cb);
-  }
-};
 
 function searchOmdb(query, cb) {
   if (yearOmdb.length === 0) {
@@ -210,9 +177,10 @@ function renderButtons() {
     del.addClass("button movie-del")
     // Adding a data-attribute called "movie-name":
     a.attr("movie-name", movies[i]);
+    del.attr("data-index", i);
     // Providing the initial button text:
     a.text(movies[i]);
-    del.html('<i class="movie-del far fa-trash-alt"></i>');
+    del.html('<i class="far fa-trash-alt"></i>');
     // Adding the button to the buttons-view div:
     $div.append(a, del);
     $("#buttons-view").append($div);
@@ -242,12 +210,17 @@ function renderOmdb(response) {
 
   // Creating an element to hold the plot:
   movieInfoDiv.append("<p><strong>Plot: </strong>" + response.Plot + "</p>");
-  // if (response.Plot === "undefined") {
 
-  // }
+  if (response.Plot === undefined) {
+    $("#movieInfo").text("This is not a movie.")
+  }
 
   // Creating an element to hold the genre:
   movieInfoDiv.append("<p><strong>Genre: </strong>" + response.Genre + "</p>");
+
+  if (response.Genre === undefined) {
+    $("#movieInfo").text("This is not a movie.")
+  }
 
   // Looping through the array of Ratings:
   for (var i = 0; i < response.Ratings.length; i++) {
@@ -293,4 +266,10 @@ function clearDivs() {
 
 }
 
+// This function handles events where the Trash Can icon is clicked:
+$(document).on("click", ".movie-del", function (event) {
+  movies.splice($(this).attr("data-index"), 1);
 
+  renderButtons();
+})
+renderButtons();
