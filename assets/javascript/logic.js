@@ -179,9 +179,10 @@ function renderButtons() {
     del.addClass("button movie-del")
     // Adding a data-attribute called "movie-name":
     a.attr("movie-name", movies[i]);
+    del.attr("data-index", i);
     // Providing the initial button text:
     a.text(movies[i]);
-    del.html('<i class="movie-del far fa-trash-alt"></i>');
+    del.html('<i class="far fa-trash-alt"></i>');
     // Adding the button to the buttons-view div:
     $div.append(a, del);
     $("#buttons-view").append($div);
@@ -266,3 +267,14 @@ function clearDivs() {
   yearOmdb = [];
 
 }
+<<<<<<< HEAD
+=======
+
+// This function handles events where the Trash Can icon is clicked:
+$(document).on("click", ".movie-del", function (event) {
+  movies.splice($(this).attr("data-index"), 1);
+
+  renderButtons();
+})
+renderButtons();
+>>>>>>> 78d959b52748d07f7e05447ab7ecea77468dac67
