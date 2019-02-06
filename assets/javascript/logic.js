@@ -264,29 +264,3 @@ function clearDivs() {
   yearOmdb = [];
 
 }
-
-// // Function for displaying saved movie data:
-// function renderSavedButtons() {
-//   // Deleting the existing saved movies prior to adding new saved movies (to avoid repeat buttons):
-//   $("#saved-buttons-view").empty();
-
-//   // Looping through the array of saved movies:
-//   for (var i = 0; i < savedMovies.length; i++) {
-//     // Then dynamically generating buttons for each saved movie in the array via jQuery needcode $("<button>") to create the beginning and end tag (<button></button>):
-//     var a = $("<button>");
-//     // Adding a class of "movie-btn" to the button:
-//     a.addClass("movie-btn button is-dark");
-//     // Adding a data-attribute called "movie-name":
-//     a.attr("movie-name", savedMovies[i]);
-//     // Providing the initial button text:
-//     a.text(savedMovies[i]);
-//     // Adding the button to the buttons-view div:
-//     $("#saved-buttons-view").append(a);
-//   }
-// }
-
-// $("#saved-buttons-view").html(localStorage.getItem("savedMovies"));
-
-// renderButtons()
-
-
