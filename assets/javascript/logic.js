@@ -1,67 +1,32 @@
-// PSEUDOCODING:
-
-// OBJECTIVE: This is a Search Movie Trailer app that takes the user search input for movie trailers and pulls from the OMDB API to display the following information:
-
-// Movie name, poster, plot, genre, reviews, runtime, rating, release date, etc.
-
-// Limited input field (only searches for movies: "That's not a movie.")
-
-// It also pulls from the Rutelly API to display the following information:
-
-// Where to find the movie streaming and other movie suggestions
-
-// SITE LAYOUT:
-
-// CONTAINER 1: // Title: "Search Movie Trailers"
-
-// Under the title, there is a "Search Movie Trailer" input field.
-// Below there are [#] dynamically generated buttons of searched movies.
-
-// CONTAINER 2: // 2 columns:
-
-// Column 1: On the left side are OMDB movie info returns.
-// Column 2: On the right side is a movie poster box.
-
-// CONTAINER 3: // 3 columns:
-
-// Column 1: "Service" (Hulu, Netflix, Prime, Vudu)
-// Column 2: "Where To View Streaming" (movie title)
-// Column 3: "Price" (free/$)
-
-// INSTRUCTIONS: //
-
-// CONTAINER 1: //
-
-// Create Jumbotron with search input field and Search button.
-// Create [#] dynamically generated buttons of searched movies.
-
-// CONTAINER 2: //
-
-// Create 2 columns:
-
-// Column 1: Create AJAX call to OMDB for name, poster, plot, genre, reviews, runtime, rating, release date, etc.
-// Column 2: Create a movie poster box for OMDB data response to be displayed at the far right side.
-
-// CONTAINER 3:
-
-// Create 3 columns:
-
-// Column 1: Create a "Service" column (Hulu, Netflix, Prime, Vudu)
-// Column 2: Create a "Where To View Streaming" column to display movie title.
-// Column 3: Create a "Price" column to display "(free/$)."
-
-// BEGIN CODING HERE:
-
 // Initial array of movies:
 var movies = [
   "Mulan",
   "The Princess Bride",
   "The Lion King",
-  "The Incredibles"
+  "The Avengers"
 ];
 
 var yearOmdb = [];
+<<<<<<< HEAD
 var yearEntered = false;
+=======
+
+// Calling the renderButtons function to display the intial buttons:
+renderButtons();
+var savedMovies = localStorage.getItem("savedMovies");
+try {
+  console.log(savedMovies)
+  savedMovies = JSON.parse(savedMovies);
+  if (Array.isArray(savedMovies)) {
+    movies = savedMovies;
+  }
+} catch {
+  console.log("There was an error")
+}
+
+renderButtons();
+// var savedMovies = []
+>>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
 
 // if button is clicked, then turns true to display the movie
 // if already true, then empty the display and return false
@@ -85,11 +50,17 @@ $("#add-movie").on("click", function (event) {
   movies.push(movie);
   yearOmdb.push(year);
 
+<<<<<<< HEAD
   if (year === "") {
     yearEntered = false
   } else {
     yearEntered = true
   }
+=======
+  // Clear forms after submission.
+  $("#movie-input").val("");
+  $("#year-input").val("");
+>>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
 
   // Calling renderButtons which handles the processing of the movies array:
   renderButtons();
@@ -99,8 +70,33 @@ $("#add-movie").on("click", function (event) {
 $(document).on("click", ".movie-btn", function () {
   var movie = $(this).attr("movie-name");
 
+<<<<<<< HEAD
   searchOmdb(movie, year, function (res) {
     renderOmdb(res);
+=======
+  searchOmdb(movie, function (res) {
+    renderOmdb(res);
+
+    var yearYouTube = res.Released[7] + res.Released[8] + res.Released[9] + res.Released[10];
+
+    searchYoutube(movie, yearYouTube, function (res) {
+      var videoId = res.items[0].id.videoId;
+      $("#testing").attr("src", "https://www.youtube.com/embed/" + videoId);
+      console.log("It works, but YouTube is being a butt.");
+
+    });
+  });
+});
+
+// This function handles events where the Clear button is clicked:
+$("#clear-button").on("click", function (event) {
+  // event.preventDefault();
+  $("#movieInfo").empty();
+  $("#posterDiv").empty();
+  $("#buttons-view").empty();
+  $("#movie-trailer").empty();
+})
+>>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
 
     var year = res.Released[7] + res.Released[8] + res.Released[9] + res.Released[10];
 
@@ -155,6 +151,47 @@ function searchOmdb(query, year, cb) {
   }
 };
 
+<<<<<<< HEAD
+=======
+function searchOmdb(query, cb) {
+  if (yearOmdb.length === 0) {
+    var movieParams = {
+      apikey: "trilogy",
+      t: query,
+      plot: "short",
+    }
+
+    var queryURL =
+      "https://www.omdbapi.com/?" + $.param(movieParams);
+
+    // Creating an AJAX call for the specific movie button being clicked:
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(cb);
+
+  } else {
+    var movieParams = {
+      apikey: "trilogy",
+      t: query,
+      plot: "short",
+      y: parseInt(yearOmdb[0])
+    }
+
+    console.log(yearOmdb);
+
+    var queryURL =
+      "https://www.omdbapi.com/?" + $.param(movieParams);
+
+    // Creating an AJAX call for the specific movie button being clicked:
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(cb);
+  }
+};
+
+>>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
 function searchYoutube(query, year, cb) {
 
   var params = {
@@ -167,7 +204,10 @@ function searchYoutube(query, year, cb) {
   };
 
   var queryURL = "https://www.googleapis.com/youtube/v3/search?" + $.param(params);
+<<<<<<< HEAD
   console.log("queryURL: ", queryURL);
+=======
+>>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
   $.ajax({
     url: queryURL,
     method: "GET"
@@ -221,6 +261,9 @@ function renderOmdb(response) {
 
   clearDivs();
 
+  // Create element to display the movie Title.
+  movieInfoDiv.append("<p class='title is-4'>" + response.Title + "</p>");
+
   // Creating an element to hold the plot:
   movieInfoDiv.append("<p><strong>Plot: </strong>" + response.Plot + "</p>");
   // if (response.Plot === "undefined") {
@@ -272,4 +315,34 @@ function clearDivs() {
   $("#posterDiv").empty();
   yearOmdb = [];
 
+<<<<<<< HEAD
 }
+=======
+}
+
+// // Function for displaying saved movie data:
+// function renderSavedButtons() {
+//   // Deleting the existing saved movies prior to adding new saved movies (to avoid repeat buttons):
+//   $("#saved-buttons-view").empty();
+
+//   // Looping through the array of saved movies:
+//   for (var i = 0; i < savedMovies.length; i++) {
+//     // Then dynamically generating buttons for each saved movie in the array via jQuery needcode $("<button>") to create the beginning and end tag (<button></button>):
+//     var a = $("<button>");
+//     // Adding a class of "movie-btn" to the button:
+//     a.addClass("movie-btn button is-dark");
+//     // Adding a data-attribute called "movie-name":
+//     a.attr("movie-name", savedMovies[i]);
+//     // Providing the initial button text:
+//     a.text(savedMovies[i]);
+//     // Adding the button to the buttons-view div:
+//     $("#saved-buttons-view").append(a);
+//   }
+// }
+
+// $("#saved-buttons-view").html(localStorage.getItem("savedMovies"));
+
+// renderButtons()
+
+
+>>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99

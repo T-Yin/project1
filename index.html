@@ -84,26 +84,29 @@
       <!-- <i class="far fa-trash-alt"></i> -->
 
       <!-- Search Form below -->
-      <div class="columns has-text-centered">
-        <div class="column"></div>
-        <div class="column">
-          <div class="control">
-            <input
-              class="input"
-              id="movie-input"
-              type="text"
-              placeholder="Search Movie"
-            />
-            <button class="button is-dark" id="add-movie">Submit</button>
-          </div>
+        <!-- Search Form below -->
+        <div class="columns has-text-centered">
+            <div class="column"></div>
+            <div class="column">
+                <div class="control">
+                    <input class="input" id="movie-input" type="text" placeholder="Search Movie" />
+                    <input class="input" id="year-input" type="text" placeholder="Year*" />
+                    <button class="button is-dark" id="add-movie">Submit</button>
+
+                    <div class="h6 has-text-centered">
+                        <p>* = optional</p>
+                    </div>
+                </div>
+            </div>
+            <div class="column"></div>
         </div>
-        <div class="column"></div>
-      </div>
 
       <div class="has-text-centered" id="buttons-view">
         <!-- Buttons go here! -->
       </div>
-      <br />
+
+      <br>
+
       <div class="has-text-centered" id="saved-buttons-view">
         <!--Saved buttons go here! -->
       </div>
