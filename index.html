@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -9,68 +8,150 @@
     <!-- Bootstrap -->
     <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
         crossorigin="anonymous"> -->
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
 
     <!-- Bulma -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css"
+    />
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css" />
-    <link href="https://fonts.googleapis.com/css?family=Ewert" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Ewert"
+      rel="stylesheet"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-    <title>Streaming Movie Finder</title>
-</head>
+    <title>Search Movie Trailers</title>
+  </head>
 
-<body>
+  <body>
+    <!-- Nav Bar here -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="https://bulma.io">
+          <img
+            src="https://bulma.io/images/bulma-logo.png"
+            width="112"
+            height="28"
+          />
+        </a>
+
+        <a
+          role="button"
+          class="navbar-burger burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start"></div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary" id="save-button">
+                <strong>Save</strong>
+              </a>
+              <a class="button is-dark" id="clear-button">
+                Clear
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
+      <!-- Header below -->
+      <header class="has-text-centered">
+        <h1 class="title is-1">Search Movie Trailers </h1>
+      </header>
+      <!-- <i class="far fa-trash-alt"></i> -->
 
-        <!-- Header below -->
-        <header class="has-text-centered">
-            <h1 class="title is-1">Search Movie Trailers</h1>
-        </header>
-
-        <!-- Search Form below -->
-        <div class="columns has-text-centered">
-            <div class="column"></div>
-            <div class="column">
-                <div class="control">
-                    <input class="input" id="movie-input" type="text" placeholder="Search Movie" />
-                    <button class="button is-dark" id="add-movie">Submit</button>
-                </div>
-            </div>
-            <div class="column"></div>
+      <!-- Search Form below -->
+      <div class="columns has-text-centered">
+        <div class="column"></div>
+        <div class="column">
+          <div class="control">
+            <input
+              class="input"
+              id="movie-input"
+              type="text"
+              placeholder="Search Movie"
+            />
+            <button class="button is-dark" id="add-movie">Submit</button>
+          </div>
         </div>
+        <div class="column"></div>
+      </div>
 
-        <div class="has-text-centered" id="buttons-view">
-            <!-- Buttons go here! -->
+      <div class="has-text-centered" id="buttons-view">
+        <!-- Buttons go here! -->
+      </div>
+      <br />
+      <div class="has-text-centered" id="saved-buttons-view">
+        <!--Saved buttons go here! -->
+      </div>
+
+      <div class="columns is-gapless">
+        <div class="column"></div>
+        <div class="column">
+          <div id="movieInfo">
+            <!-- Movie Info here! -->
+          </div>
         </div>
-
-        <div class="columns is-gapless">
-            <div class="column"></div>
-            <div class="column">
-                <div id="movieInfo">
-                    <!-- Movie Info here! -->
-                </div>
-            </div>
-            <div class="column">
-                <div id="posterDiv" class="has-text-centered">
-                    <!-- Poster Here!  -->
-                </div>
-            </div>
-            <div class="column"></div>
+        <div class="column">
+          <div id="posterDiv" class="has-text-centered">
+            <!-- Poster Here!  -->
+          </div>
         </div>
+        <div class="column"></div>
+      </div>
 
-        <div id="movie-trailer" class="has-text-centered">
-            <!-- Movie Trailer here! -->
-            <iframe id="testing" width="560" height="315" src="" frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
-
-
-
+      <div id="movie-trailer" class="has-text-centered">
+        <!-- Movie Trailer here! -->
+        <iframe
+          id="testing"
+          width="560"
+          height="315"
+          src=""
+          frameborder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
     </div>
+
+    <!-- Footer here! -->
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>Website</strong> created by
+          <a href="https://jgthms.com">Tiffany Yin and Brian Hopkins</a>.
+
+          <!-- The source code is licensed
+        <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website content
+        is licensed <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY NC SA 4.0</a>. -->
+        </p>
+      </div>
+    </footer>
+
     <!-- JavaScript -->
     <script src="assets/javascript/logic.js"></script>
-</body>
-
+  </body>
 </html>
