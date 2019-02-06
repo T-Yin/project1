@@ -267,8 +267,6 @@ function clearDivs() {
   yearOmdb = [];
 
 }
-<<<<<<< HEAD
-=======
 
 // This function handles events where the Trash Can icon is clicked:
 $(document).on("click", ".movie-del", function (event) {
@@ -277,4 +275,3 @@ $(document).on("click", ".movie-del", function (event) {
   renderButtons();
 })
 renderButtons();
->>>>>>> 78d959b52748d07f7e05447ab7ecea77468dac67
