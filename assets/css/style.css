@@ -10,8 +10,17 @@ img {
     margin: 10px;
 }
 
-.button {
+.buttons {
+  display: inline-flex;
+  margin-left: 15px;
+}
+
+.buttons:first-child {
+  margin-left: 0px;
+}
+
+/* .button {
     margin-left: 3px;
     margin-right: 3px;
     margin-bottom: 20px;
-}
+} */
