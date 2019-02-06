@@ -1,5 +1,3 @@
-### PROJECT1: habt
-
 ### PROJECT TITLE: Streaming Movie Finder
 
 ### TEAM MEMBERS: 
@@ -9,14 +7,12 @@
 
     - Must use at least two APIs:
         * OMDB
-        * Utelly
-        * Bulma
+        * YouTube
 
-    - Must use AJAX to pull data (obviously)
+    - Must use AJAX to pull data
 
     - Must use at least one new library or technology not introduced in class:
 
-        * Utelly
         * Bulma
 
     - Must have a polished frontend/UI (obviously)
@@ -50,19 +46,11 @@
 ### APIS TO BE USED:
 
     - OMDB
-    - Utelly
+    - YouTube
     - Bulma
 
 ### TASK DELEGATION:
 
-    - Frontend & OMBD API + Backend & YouTube (trailer) API & how HTML displays on the DOM: 
+    - like, everything.
 
-        * Tiffany & Brian
-
->>>>>>> 9b43255e086a712482d0563dde6e2c681945e427
-
-###Description:
-
-###APIs Used:
-
-###Tasks:
+        * Tiffany & Brian (Tucker too)
