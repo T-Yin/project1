@@ -7,9 +7,6 @@ var movies = [
 ];
 
 var yearOmdb = [];
-<<<<<<< HEAD
-var yearEntered = false;
-=======
 
 // Calling the renderButtons function to display the intial buttons:
 renderButtons();
@@ -26,7 +23,6 @@ try {
 
 renderButtons();
 // var savedMovies = []
->>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
 
 // if button is clicked, then turns true to display the movie
 // if already true, then empty the display and return false
@@ -50,17 +46,9 @@ $("#add-movie").on("click", function (event) {
   movies.push(movie);
   yearOmdb.push(year);
 
-<<<<<<< HEAD
-  if (year === "") {
-    yearEntered = false
-  } else {
-    yearEntered = true
-  }
-=======
   // Clear forms after submission.
   $("#movie-input").val("");
   $("#year-input").val("");
->>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
 
   // Calling renderButtons which handles the processing of the movies array:
   renderButtons();
@@ -70,10 +58,6 @@ $("#add-movie").on("click", function (event) {
 $(document).on("click", ".movie-btn", function () {
   var movie = $(this).attr("movie-name");
 
-<<<<<<< HEAD
-  searchOmdb(movie, year, function (res) {
-    renderOmdb(res);
-=======
   searchOmdb(movie, function (res) {
     renderOmdb(res);
 
@@ -96,7 +80,6 @@ $("#clear-button").on("click", function (event) {
   $("#buttons-view").empty();
   $("#movie-trailer").empty();
 })
->>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
 
     var year = res.Released[7] + res.Released[8] + res.Released[9] + res.Released[10];
 
@@ -105,9 +88,9 @@ $("#clear-button").on("click", function (event) {
       $("#testing").attr("src", "https://www.youtube.com/embed/" + videoId);
 
     });
-  });
 
-});
+
+
 
 // Calling the renderButtons function to display the intial buttons:
 renderButtons();
@@ -151,8 +134,6 @@ function searchOmdb(query, year, cb) {
   }
 };
 
-<<<<<<< HEAD
-=======
 function searchOmdb(query, cb) {
   if (yearOmdb.length === 0) {
     var movieParams = {
@@ -191,7 +172,6 @@ function searchOmdb(query, cb) {
   }
 };
 
->>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
 function searchYoutube(query, year, cb) {
 
   var params = {
@@ -204,10 +184,6 @@ function searchYoutube(query, year, cb) {
   };
 
   var queryURL = "https://www.googleapis.com/youtube/v3/search?" + $.param(params);
-<<<<<<< HEAD
-  console.log("queryURL: ", queryURL);
-=======
->>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
   $.ajax({
     url: queryURL,
     method: "GET"
@@ -315,34 +291,6 @@ function clearDivs() {
   $("#posterDiv").empty();
   yearOmdb = [];
 
-<<<<<<< HEAD
-}
-=======
 }
 
-// // Function for displaying saved movie data:
-// function renderSavedButtons() {
-//   // Deleting the existing saved movies prior to adding new saved movies (to avoid repeat buttons):
-//   $("#saved-buttons-view").empty();
 
-//   // Looping through the array of saved movies:
-//   for (var i = 0; i < savedMovies.length; i++) {
-//     // Then dynamically generating buttons for each saved movie in the array via jQuery needcode $("<button>") to create the beginning and end tag (<button></button>):
-//     var a = $("<button>");
-//     // Adding a class of "movie-btn" to the button:
-//     a.addClass("movie-btn button is-dark");
-//     // Adding a data-attribute called "movie-name":
-//     a.attr("movie-name", savedMovies[i]);
-//     // Providing the initial button text:
-//     a.text(savedMovies[i]);
-//     // Adding the button to the buttons-view div:
-//     $("#saved-buttons-view").append(a);
-//   }
-// }
-
-// $("#saved-buttons-view").html(localStorage.getItem("savedMovies"));
-
-// renderButtons()
-
-
->>>>>>> 10ad7d04076a8a37483cf58f7ba4f7b206e87c99
