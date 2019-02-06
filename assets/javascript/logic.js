@@ -258,7 +258,7 @@ function renderOmdb(response) {
 
   // Appending the image to the poster div:
   $("#posterDiv").append(image);
-}
+};
 
 function clearDivs() {
 
@@ -266,15 +266,13 @@ function clearDivs() {
   $("#posterDiv").empty();
   yearOmdb = [];
 
-}
-<<<<<<< HEAD
-=======
+};
 
 // This function handles events where the Trash Can icon is clicked:
 $(document).on("click", ".movie-del", function (event) {
   movies.splice($(this).attr("data-index"), 1);
 
   renderButtons();
-})
+});
+
 renderButtons();
->>>>>>> 78d959b52748d07f7e05447ab7ecea77468dac67
