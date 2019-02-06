@@ -1,67 +1,15 @@
-// PSEUDOCODING:
-
-// OBJECTIVE: This is a Search Movie Trailer app that takes the user search input for movie trailers and pulls from the OMDB API to display the following information:
-
-// Movie name, poster, plot, genre, reviews, runtime, rating, release date, etc.
-
-// Limited input field (only searches for movies: "That's not a movie.")
-
-// It also pulls from the Rutelly API to display the following information:
-
-// Where to find the movie streaming and other movie suggestions
-
-// SITE LAYOUT:
-
-// CONTAINER 1: // Title: "Search Movie Trailers"
-
-// Under the title, there is a "Search Movie Trailer" input field.
-// Below there are [#] dynamically generated buttons of searched movies.
-
-// CONTAINER 2: // 2 columns:
-
-// Column 1: On the left side are OMDB movie info returns.
-// Column 2: On the right side is a movie poster box.
-
-// CONTAINER 3: // 3 columns:
-
-// Column 1: "Service" (Hulu, Netflix, Prime, Vudu)
-// Column 2: "Where To View Streaming" (movie title)
-// Column 3: "Price" (free/$)
-
-// INSTRUCTIONS: //
-
-// CONTAINER 1: //
-
-// Create Jumbotron with search input field and Search button.
-// Create [#] dynamically generated buttons of searched movies.
-
-// CONTAINER 2: //
-
-// Create 2 columns:
-
-// Column 1: Create AJAX call to OMDB for name, poster, plot, genre, reviews, runtime, rating, release date, etc.
-// Column 2: Create a movie poster box for OMDB data response to be displayed at the far right side.
-
-// CONTAINER 3:
-
-// Create 3 columns:
-
-// Column 1: Create a "Service" column (Hulu, Netflix, Prime, Vudu)
-// Column 2: Create a "Where To View Streaming" column to display movie title.
-// Column 3: Create a "Price" column to display "(free/$)."
-
-// BEGIN CODING HERE:
-
 // Initial array of movies:
 var movies = [
   "Mulan",
   "The Princess Bride",
   "The Lion King",
-  "The Incredibles"
+  "The Avengers"
 ];
 
-// var yearOmdb = [];
-// var yearEntered = false;
+var yearOmdb = [];
+
+// Calling the renderButtons function to display the intial buttons:
+renderButtons();
 
 // if button is clicked, then turns true to display the movie
 // if already true, then empty the display and return false
@@ -85,11 +33,9 @@ $("#add-movie").on("click", function (event) {
   movies.push(movie);
   yearOmdb.push(year);
 
-  // if (year === "") {
-  //   yearEntered = false
-  // } else {
-  //   yearEntered = true
-  // }
+  // Clear forms after submission.
+  $("#movie-input").val("");
+  $("#year-input").val("");
 
   // Calling renderButtons which handles the processing of the movies array:
   renderButtons();
@@ -102,42 +48,19 @@ $(document).on("click", ".movie-btn", function () {
   searchOmdb(movie, function (res) {
     renderOmdb(res);
 
-    var year = res.Released[7] + res.Released[8] + res.Released[9] + res.Released[10];
+    var yearYouTube = res.Released[7] + res.Released[8] + res.Released[9] + res.Released[10];
 
-    searchYoutube(movie, year, function (res) {
+    searchYoutube(movie, yearYouTube, function (res) {
       var videoId = res.items[0].id.videoId;
       $("#testing").attr("src", "https://www.youtube.com/embed/" + videoId);
+      console.log("It works, but YouTube is being a butt.");
 
     });
   });
-
 });
 
-// Calling the renderButtons function to display the intial buttons:
-renderButtons();
-
 function searchOmdb(query, cb) {
-  // if (yearEntered) {
-
-  //   var movieParams = {
-  //     apikey: "trilogy",
-  //     t: query,
-  //     plot: "short",
-  //     y: parseInt(yearOmdb[0])
-  //   }
-
-  //   console.log(yearOmdb);
-
-  //   var queryURL =
-  //     "https://www.omdbapi.com/?" + $.param(movieParams);
-
-    // Creating an AJAX call for the specific movie button being clicked:
-    $.ajax({
-      url: queryURL,
-      method: "GET"
-    }).then(cb);
-  // } else {
-
+  if (yearOmdb.length === 0) {
     var movieParams = {
       apikey: "trilogy",
       t: query,
@@ -152,13 +75,32 @@ function searchOmdb(query, cb) {
       url: queryURL,
       method: "GET"
     }).then(cb);
-  // }
+
+  } else {
+    var movieParams = {
+      apikey: "trilogy",
+      t: query,
+      plot: "short",
+      y: parseInt(yearOmdb[0])
+    }
+
+    console.log(yearOmdb);
+
+    var queryURL =
+      "https://www.omdbapi.com/?" + $.param(movieParams);
+
+    // Creating an AJAX call for the specific movie button being clicked:
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(cb);
+  }
 };
 
 function searchYoutube(query, year, cb) {
 
   var params = {
-    key: "AIzaSyB2Kaj69ZVu97NmlZZPkSSpqof43KUG_GY",
+    key: "AIzaSyBOp-oU8Xo9CqxzHoxX8w3UN30z1DhtiFA",
     part: "snippet",
     maxResults: 1,
     q: query + " " + year + " official trailer",
@@ -167,7 +109,6 @@ function searchYoutube(query, year, cb) {
   };
 
   var queryURL = "https://www.googleapis.com/youtube/v3/search?" + $.param(params);
-  console.log("queryURL: ", queryURL);
   $.ajax({
     url: queryURL,
     method: "GET"
@@ -212,11 +153,11 @@ function renderOmdb(response) {
 
   clearDivs();
 
+  // Create element to display the movie Title.
+  movieInfoDiv.append("<p class='title is-4'>" + response.Title + "</p>");
+
   // Creating an element to hold the plot:
   movieInfoDiv.append("<p><strong>Plot: </strong>" + response.Plot + "</p>");
-  // if (response.Plot === "undefined") {
-
-  // }
 
   // Creating an element to hold the genre:
   movieInfoDiv.append("<p><strong>Genre: </strong>" + response.Genre + "</p>");
@@ -264,3 +205,40 @@ function clearDivs() {
   yearOmdb = [];
 
 }
+
+$(document).ready(function() {
+
+  // Gets the video src from the data-src on each button
+  
+  var $videoSrc;  
+  $('.video-btn').click(function() {
+      $videoSrc = $(this).data( "src" );
+  });
+  console.log($videoSrc);
+  
+    
+    
+  // when the modal is opened autoplay it  
+  $('#myModal').on('shown.bs.modal', function (e) {
+      
+  // set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+  $("#video").attr('src',$videoSrc + "?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1" ); 
+  })
+    
+    
+  // stop playing the youtube video when I close the modal
+  $('#myModal').on('hide.bs.modal', function (e) {
+      // a poor man's stop video
+      $("#video").attr('src',$videoSrc); 
+  }) 
+      
+      
+  
+  
+    
+    
+  // document ready  
+  });
+  
+  
+  
